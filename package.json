@@ -1,0 +1,15 @@
+{
+  "name": "nan1-ssg",
+  "version": "0.0.1",
+  "description": "Release 0.1 of nan1-ssg",
+  "main": "nan1-ssg.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Neil An",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^9.4.0"
+  },
+  "type": "module"
+}
