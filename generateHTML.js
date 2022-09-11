@@ -1,7 +1,8 @@
 import fs, { read } from 'fs';
 import path from 'path';
 import readline from 'readline';
- 
+
+//this function will generate all the HTML files
 export function generateHTML(input)
 {
     const dist = './dist';
@@ -26,25 +27,17 @@ export function generateHTML(input)
         }
         else
         {
-            console.log(stats);
             if (stats.isDirectory())
             {
-                console.log("Dir: " + input);
                 fs.readdir(input, function(err, files)
                 {
-                    console.log(files);
                     files.forEach(function(fileName)
                     {
                         if (path.extname(fileName) == ".txt")
                         {
-                            console.log("filename" + fileName);
                             readFile(input + "/" + fileName).then(function(result)
                             {
                                 writeFile(fileName, result);
-                            })
-                            .then(function(err)
-                            {
-                                console.log("testest");
                             })
                         }
                     })
@@ -60,23 +53,19 @@ export function generateHTML(input)
                         writeFile(input, result);
                         generateIndexHTML(input, false);
                     })
-                    .then(function(err)
-                    {
-                        console.log("testest");
-                    })
                 }
             }
         }
     })
 }
 
+//this function will read a file
 function readFile(input)
 {
     return new Promise(async function(res, rej)
     {
         var lineArray = [];
         const theFile = fs.createReadStream(input);
-        //console.log(theFile)
         const line = readline.createInterface(
             {
                 input: theFile
@@ -86,22 +75,20 @@ function readFile(input)
         //go through the file line by line
         for await (const theLine of line)
         {
-            //console.log("theline" + theLine);
             if (theLine != "")
             {
                 lineArray.push(theLine);
-                //console.log("concat" + lineArray);
             }
             else
             {
                 lineArray.push("\n");
             }
         }
-        //console.log("first" + lineArray);
         res(lineArray);    
     })
 }
 
+//this function will write to a file
 function writeFile(input, result)
 {
     return new Promise(function(res, rej)
@@ -111,11 +98,12 @@ function writeFile(input, result)
         //create the file name
         var htmlFile = './dist/' + input.substring(0, input.length-4) + '.html';
 
-        //create the content to write
+        //add the <p> tags to each line
         for (var theLine of result)
         {
             if (theLine != "\n")
             {
+                //try to format the HTML file better
                 if (lineNumber == 0)
                 {
                     content += "<p>" + theLine + "</p>\n";
@@ -140,6 +128,7 @@ function writeFile(input, result)
     <meta charset="utf-8">
     <title>Filename</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
     ${content}
@@ -147,13 +136,12 @@ function writeFile(input, result)
 </html>
         `
 
-        //have to write the file contents now
-        fs.writeFile(htmlFile, templateHTML, function(err)
+        //write the file contents to the correct filename
+        fs.writeFile(htmlFile, templateHTML, function()
         {
-            console.log(err);
+
         });
 
-        console.log("second");
         res(htmlFile);
     })
 }
@@ -165,10 +153,9 @@ function generateIndexHTML(input, isDir)
     {
         for (var file of input)
         {
-            var htmlFile = input.substring(0, input.length-4) + '.html';
-            var htmlFileReadable = input.substring(0, input.length-4) + '.html';
+            var htmlFile = file.substring(0, file.length-4) + '.html';
+            var htmlFileReadable = file.substring(0, file.length-4) + '.html';
             content += `<a href="${htmlFile}"> ${htmlFileReadable} </a><br>`;
-            console.log(file);
         }
     }
     else
@@ -186,6 +173,7 @@ function generateIndexHTML(input, isDir)
     <meta charset="utf-8">
     <title>Filename</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
     The files are:
@@ -194,8 +182,8 @@ function generateIndexHTML(input, isDir)
 </body>
 </html>
         `
-        fs.writeFile('./dist/index.html', templateHTML, function(err)
+        fs.writeFile('./dist/index.html', templateHTML, function()
         {
-            console.log(err);
+
         });
 }

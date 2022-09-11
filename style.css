@@ -1,0 +1,17 @@
+body {
+    border: 4px dashed #001f3f;
+    font-family: Verdana, sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.6;
+    color: whitesmoke;
+    text-align: center;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(13,168,204,1) 0%, rgba(30,149,176,1) 0%, rgba(7,112,135,1) 30%, rgba(1,70,84,1) 100%);
+    max-width: 100%;
+    height: auto;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+  

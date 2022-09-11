@@ -3,7 +3,7 @@ import { program } from 'commander';
 
 program
 .option('-v, --version', 'displays the tool name and version')
-.option('-i, --input <item>', 'gets input from a file or folder')
+.option('-i, --input <item>', 'gets input from a file or folder');
 
 program.parse(process.argv);
 
