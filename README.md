@@ -17,7 +17,7 @@ nan1-ssg is a static site generator converting .txt files to .html files.
 3. Start using the tool! For example:
 
 ```
-node main [-option]
+nan1-ssg [-option]
 ```
 
 **A list of options:**
@@ -34,17 +34,22 @@ The hello.txt file and Sherlock-Holmes-Selected-Stories directory is provided fo
 
 **For a text file:**
 ```
-node main -i hello.txt
+nan1-ssg -i hello.txt
 ```
 
 **For a directory:**
 ```
-node main -i Sherlock-Holmes-Selected-Stories
+nan1-ssg -i Sherlock-Holmes-Selected-Stories
+```
+
+**Files that are nested:**
+```
+nan1-ssg -i "./Sherlock-Holmes-Selected-Stories/Silver Blaze.txt"
 ```
 
 **Files containing spaces:**
 ```
-node main -i "file with spaces.txt"
+nan1-ssg -i "file with spaces.txt"
 ```
 
 ## Features
