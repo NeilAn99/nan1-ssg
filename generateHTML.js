@@ -7,6 +7,9 @@ export function generateHTML(input)
 {
     const dist = './dist';
 
+    //to get the filename without the full pathname
+    var strippedInput = path.basename(input);
+
     //remove the dist directory and its contents
     if (fs.existsSync(dist))
     {
@@ -46,12 +49,12 @@ export function generateHTML(input)
             }
             else
             {
-                if (path.extname(input) == ".txt")
+                if (path.extname(strippedInput) == ".txt")
                 {
                     readFile(input).then(function(result)
                     {
-                        writeFile(input, result);
-                        generateIndexHTML(input, false);
+                        writeFile(strippedInput, result);
+                        generateIndexHTML(strippedInput, false);
                     })
                 }
             }
@@ -154,15 +157,13 @@ function generateIndexHTML(input, isDir)
         for (var file of input)
         {
             var htmlFile = file.substring(0, file.length-4) + '.html';
-            var htmlFileReadable = file.substring(0, file.length-4) + '.html';
-            content += `<a href="${htmlFile}"> ${htmlFileReadable} </a><br>`;
+            content += `<a href="${htmlFile}"> ${htmlFile} </a>\n<br>`;
         }
     }
     else
     {
         var htmlFile = input.substring(0, input.length-4) + '.html';
-        var htmlFileReadable = input.substring(0, input.length-4) + '.html';
-        content += `<a href="${htmlFile}"> ${htmlFileReadable} </a><br>`;
+        content += `<a href="${htmlFile}"> ${htmlFile} </a>\n<br>`;
     }
 
     const templateHTML =
