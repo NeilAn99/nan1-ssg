@@ -19,7 +19,12 @@ nan1-ssg is a static site generator converting .txt files to .html files.
 npm install
 ```
 
-4. Start using the tool! For example:
+4. Run the npm link command:
+```
+npm link
+```
+
+5. Start using the tool! For example:
 
 ```
 nan1-ssg [-option]
