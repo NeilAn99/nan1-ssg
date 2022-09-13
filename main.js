@@ -1,3 +1,4 @@
+#! /usr/bin/env node
 import { generateHTML } from './generateHTML.js';
 import { program } from 'commander';
 

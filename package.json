@@ -11,5 +11,8 @@
   "dependencies": {
     "commander": "^9.4.0"
   },
-  "type": "module"
+  "type": "module",
+  "bin": {
+    "nan1-ssg": "./main.js"
+  }
 }
