@@ -100,6 +100,7 @@ function writeFile(input, result)
         var lineNumber = 0;
         //create the file name
         var htmlFile = './dist/' + input.substring(0, input.length-4) + '.html';
+        var title = input.substring(0, input.length-4);
 
         //add the <p> tags to each line
         for (var theLine of result)
@@ -129,7 +130,7 @@ function writeFile(input, result)
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Filename</title>
+    <title>${title}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../style.css">
 </head>
@@ -172,7 +173,7 @@ function generateIndexHTML(input, isDir)
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Filename</title>
+    <title>index</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../style.css">
 </head>
