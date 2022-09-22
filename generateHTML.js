@@ -125,14 +125,17 @@ function readMdFile(input)
             {
                 // regex to find opening and closing '**' in the line
                 //  based off of stackoverflow answer found here: https://stackoverflow.com/a/2295943 
+
+                // the pattern below matches multiple sets of characters that are surrounded by '**'
                 let pattern = /\*\*(?:\\.|[^\*\*])*\*\*/gm;
                 let matchIndexes = [];
                 let match;
+
+                // the while loop below will test the regex pattern against the line, and then push the beginning and ending index of the match into the match indexes array to find the positions where to place the <strong>...</strong> tags
                 while( match = pattern.exec(theLine) ){
                     matchIndexes.push(match.index);
                     matchIndexes.push(pattern.lastIndex);
                 }
-                console.log(matchIndexes);
 
                 // // make a modifiable copy of theLine
                 let modifiedLine = theLine;
