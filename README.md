@@ -1,6 +1,6 @@
 # nan1-ssg
 
-nan1-ssg is a static site generator converting .txt files to .html files.
+nan1-ssg is a static site generator converting .txt and .md files to .html files.
 
 ## Requirements
 
@@ -38,13 +38,18 @@ nan1-ssg [-option]
 | -h, --help | Will display a help message, showing options and usage. |
 | -i <filename>, --input <filename> | Gives the tool a filename to generate HTML files with. The filename can be a file or a directory. |
 
-The hello.txt file and Sherlock-Holmes-Selected-Stories directory is provided for testing purposes.
+The hello.txt file, markdownTest.md file,  and Sherlock-Holmes-Selected-Stories directory are provided for testing purposes.
 
 ## Examples
 
 **For a text file:**
 ```
 nan1-ssg -i hello.txt
+```
+
+**For a markdown file:**
+```
+nan1-ssg -i hello.md
 ```
 
 **For a directory:**
@@ -64,6 +69,6 @@ nan1-ssg -i "file with spaces.txt"
 
 ## Features
 
-- Generating valid HTML5 files from .txt files and placed in the dist directory
+- Generating valid HTML5 files from .txt and .md files and placed in the dist directory
 - An index.html file is created which contain relative links to the generated HTML files
 - Each HTML file uses a default stylesheet to improve beauty and readability
