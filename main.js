@@ -11,7 +11,7 @@ program.parse(process.argv);
 if (program.opts().version)
 {
     console.log("name: nan1-ssg");
-    console.log("version: 0.1");
+    console.log("version: 0.2");
 }
 
 if (program.opts().input)
