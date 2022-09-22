@@ -38,7 +38,13 @@ export function generateHTML(input)
                     {
                         if (path.extname(fileName) == ".txt")
                         {
-                            readFile(input + "/" + fileName).then(function(result)
+                            readTextFile(input + "/" + fileName).then(function(result)
+                            {
+                                writeFile(fileName, result);
+                            })
+                        } else if (path.extname(fileName) == ".md")
+                        {
+                            readMdFile(input + "/" + fileName).then(function(result)
                             {
                                 writeFile(fileName, result);
                             })
@@ -51,7 +57,15 @@ export function generateHTML(input)
             {
                 if (path.extname(strippedInput) == ".txt")
                 {
-                    readFile(input).then(function(result)
+                    readTextFile(input).then(function(result)
+                    {
+                        writeFile(strippedInput, result);
+                        generateIndexHTML(strippedInput, false);
+                    })
+                }
+                else if (path.extname(strippedInput) == ".md")
+                {
+                    readMdFile(input).then(function(result)
                     {
                         writeFile(strippedInput, result);
                         generateIndexHTML(strippedInput, false);
@@ -62,8 +76,8 @@ export function generateHTML(input)
     })
 }
 
-//this function will read a file
-function readFile(input)
+//this function will read a .txt file
+function readTextFile(input)
 {
     return new Promise(async function(res, rej)
     {
@@ -81,6 +95,59 @@ function readFile(input)
             if (theLine != "")
             {
                 lineArray.push(theLine);
+            }
+            else
+            {
+                lineArray.push("\n");
+            }
+        }
+        res(lineArray);    
+    })
+}
+
+//this function will read a .md file
+function readMdFile(input)
+{
+    return new Promise(async function(res, rej)
+    {
+        var lineArray = [];
+        const theFile = fs.createReadStream(input);
+        const line = readline.createInterface(
+            {
+                input: theFile
+            }
+        );
+
+        //go through the file line by line
+        for await (const theLine of line)
+        {
+            if (theLine != "")
+            {
+                // regex to find opening and closing '**' in the line
+                //  based off of stackoverflow answer found here: https://stackoverflow.com/a/2295943 
+                let pattern = /\*\*(?:\\.|[^\*\*])*\*\*/gm;
+                let matchIndexes = [];
+                let match;
+                while( match = pattern.exec(theLine) ){
+                    matchIndexes.push(match.index);
+                    matchIndexes.push(pattern.lastIndex);
+                }
+                console.log(matchIndexes);
+
+                // // make a modifiable copy of theLine
+                let modifiedLine = theLine;
+
+                // replace '**' with '<strong>' and '</strong>' tags, note lines may have multiple bolded words
+                for (let i = 0; i < matchIndexes.length; i += 2) {
+                    modifiedLine = modifiedLine.slice(0, matchIndexes[i]) + '<strong>' + modifiedLine.slice(matchIndexes[i] + 2, matchIndexes[i + 1] - 2) + '</strong>' + modifiedLine.slice(matchIndexes[i + 1]);
+
+                    // compensate for the added characters in the array (adding <strong> and </strong> tags and removing '**' --> 8 + 9 - 4 = 13)
+                    for (let j = i + 2; j < matchIndexes.length; j++) {
+                        matchIndexes[j] += 13;
+                    }
+                }
+                
+                lineArray.push(modifiedLine);
             }
             else
             {
