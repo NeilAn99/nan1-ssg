@@ -1,6 +1,6 @@
 {
   "name": "nan1-ssg",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Release 0.1 of nan1-ssg",
   "main": "nan1-ssg.js",
   "scripts": {
