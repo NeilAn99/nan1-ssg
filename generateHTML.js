@@ -40,13 +40,13 @@ export function generateHTML(input, lang="")
                         {
                             readTextFile(input + "/" + fileName).then(function(result)
                             {
-                                writeFile(fileName, result);
+                                writeFile(fileName, result, lang);
                             })
                         } else if (path.extname(fileName) == ".md")
                         {
                             readMdFile(input + "/" + fileName).then(function(result)
                             {
-                                writeFile(fileName, result);
+                                writeFile(fileName, result, lang);
                             })
                         }
                     })
@@ -59,7 +59,7 @@ export function generateHTML(input, lang="")
                 {
                     readTextFile(input).then(function(result)
                     {
-                        writeFile(strippedInput, result);
+                        writeFile(strippedInput, result, lang);
                         generateIndexHTML(strippedInput, false);
                     })
                 }
@@ -67,7 +67,7 @@ export function generateHTML(input, lang="")
                 {
                     readMdFile(input).then(function(result)
                     {
-                        writeFile(strippedInput, result);
+                        writeFile(strippedInput, result, lang);
                         generateIndexHTML(strippedInput, false);
                     })
                 }
@@ -162,15 +162,25 @@ function readMdFile(input)
 }
 
 //this function will write to a file
-function writeFile(input, result)
+function writeFile(input, result, lang)
 {
     return new Promise(function(res, rej)
     {
         var content = "";
         var lineNumber = 0;
-        //create the file name
-        var htmlFile = './dist/' + input.substring(0, input.length-4) + '.html';
-        var title = input.substring(0, input.length-4);
+        var htmlFile = "";
+        var title = "";
+        //create the file name if text file or md file
+        if (path.extname(input) == ".txt")
+        {
+            htmlFile = './dist/' + input.substring(0, input.length-4) + '.html';
+            title = input.substring(0, input.length-4);
+        }
+        else if (path.extname(input) == ".md")
+        {
+            htmlFile = './dist/' + input.substring(0, input.length-3) + '.html';
+            title = input.substring(0, input.length-3);
+        }
 
         //add the <p> tags to each line
         for (var theLine of result)
@@ -194,10 +204,13 @@ function writeFile(input, result)
             lineNumber++;
         }
 
-        const templateHTML =
-        `
+        var templateHTML = "";
+        if (lang != "")
+        {
+            templateHTML =
+            `
 <!doctype html>
-<html lang="en">
+<html lang="${lang}">
 <head>
     <meta charset="utf-8">
     <title>${title}</title>
@@ -208,7 +221,27 @@ function writeFile(input, result)
     ${content}
 </body>
 </html>
-        `
+            `
+        }
+        else
+        {
+            templateHTML =
+            `
+<!doctype html>
+<html lang="en-CA">
+<head>
+    <meta charset="utf-8">
+    <title>${title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    ${content}
+</body>
+</html>
+            `
+        }
+
 
         //write the file contents to the correct filename
         fs.writeFile(htmlFile, templateHTML, function()

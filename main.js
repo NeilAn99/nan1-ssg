@@ -5,7 +5,7 @@ import { program } from 'commander';
 program
 .option('-v, --version', 'displays the tool name and version')
 .option('-i, --input <item>', 'gets input from a file or folder')
-.option('-l, --lang', 'specifies language to use');
+.option('-l, --lang <item>', 'specifies language to use');
 
 program.parse(process.argv);
 
@@ -19,7 +19,8 @@ if (program.opts().input)
 {
     if (program.opts().lang)
     {
-        generateHTML(`${program.opts().input}`, program.opts().lang);
+        console.log(`${program.opts().lang}`);
+        generateHTML(`${program.opts().input}`, `${program.opts().lang}`);
     }
     else
     {
