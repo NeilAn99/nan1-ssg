@@ -37,6 +37,7 @@ nan1-ssg [-option]
 | -v, --version | Will display the name and version of the tool. |
 | -h, --help | Will display a help message, showing options and usage. |
 | -i <filename>, --input <filename> | Gives the tool a filename to generate HTML files with. The filename can be a file or a directory. |
+| -l <language>, --lang <language> | Specifies a language to generate the HTML from. |
 
 The hello.txt file, markdownTest.md file,  and Sherlock-Holmes-Selected-Stories directory are provided for testing purposes.
 
@@ -52,6 +53,11 @@ nan1-ssg -i hello.txt
 nan1-ssg -i hello.md
 ```
 
+**For a file with a specific language:**
+```
+nan1-ssg -i hello.txt -l fr
+```  
+  
 **For a directory:**
 ```
 nan1-ssg -i Sherlock-Holmes-Selected-Stories
@@ -72,3 +78,5 @@ nan1-ssg -i "file with spaces.txt"
 - Generating valid HTML5 files from .txt and .md files and placed in the dist directory
 - An index.html file is created which contain relative links to the generated HTML files
 - Each HTML file uses a default stylesheet to improve beauty and readability
+- Can specify language to HTML file to use
+- Horizontal rules are translated from Markdown files
