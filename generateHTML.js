@@ -150,6 +150,12 @@ function readMdFile(input)
                     }
                 }
                 
+                //check if the line is a horizontal rule
+                if (modifiedLine == "---")
+                {
+                    modifiedLine = '<hr>';
+                }
+
                 lineArray.push(modifiedLine);
             }
             else
@@ -180,11 +186,26 @@ function writeFile(input, result)
                 //try to format the HTML file better
                 if (lineNumber == 0)
                 {
-                    content += "<p>" + theLine + "</p>\n";
+                    //check if the line is an hr tag
+                    if (theLine == "<hr>")
+                    {
+                        content += theLine + "\n";
+                    }
+                    else
+                    {
+                        content += "<p>" + theLine + "</p>\n";
+                    }
                 }
                 else
                 {
-                    content += "\t<p>" + theLine + "</p>\n";
+                    if (theLine == "<hr>")
+                    {
+                        content += "\t" + theLine + "\n";
+                    }
+                    else
+                    {
+                        content += "\t<p>" + theLine + "</p>\n";
+                    }
                 }
             }
             else
