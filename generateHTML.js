@@ -3,7 +3,7 @@ import path from 'path';
 import readline from 'readline';
 
 //this function will generate all the HTML files
-export function generateHTML(input)
+export function generateHTML(input, lang="")
 {
     const dist = './dist';
 
