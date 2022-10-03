@@ -38,8 +38,9 @@ nan1-ssg [-option]
 | -h, --help | Will display a help message, showing options and usage. |
 | -i <filename>, --input <filename> | Gives the tool a filename to generate HTML files with. The filename can be a file or a directory. |
 | -l <language>, --lang <language> | Specifies a language to generate the HTML from. |
+| -c <configFile>, --config <configFile> | Add a JSON config file to specify options. Omit other options when using this option. |
 
-The hello.txt file, markdownTest.md file,  and Sherlock-Holmes-Selected-Stories directory are provided for testing purposes.
+The hello.txt file, markdownTest.md file, ssg-config.json file and Sherlock-Holmes-Selected-Stories directory are provided for testing purposes.
 
 ## Examples
 
@@ -73,6 +74,11 @@ nan1-ssg -i "./Sherlock-Holmes-Selected-Stories/Silver Blaze.txt"
 nan1-ssg -i "file with spaces.txt"
 ```
 
+**Using a configuration JSON file:**
+```
+nan1-ssg -c ./ssg-config.json
+```
+
 ## Features
 
 - Generating valid HTML5 files from .txt and .md files and placed in the dist directory
@@ -80,3 +86,11 @@ nan1-ssg -i "file with spaces.txt"
 - Each HTML file uses a default stylesheet to improve beauty and readability
 - Can specify language to HTML file to use
 - Horizontal rules are translated from Markdown files
+- A configuration JSON file can be used to specify all options
+    - Example file format:
+    ```json
+    {
+        "input": "./ssg-config.json",
+        "lang": "fr"
+    }
+    ```
