@@ -22,9 +22,10 @@ if(program.opts().config)
     readConfigFile(program.opts().config).then(function(configFile)
     {
         generateHTML(configFile.input, configFile.lang);
-    }).catch(function (rej)
+    })
+    .catch(function (rej)
     {
-        console.log(rej)
+        console.log(rej);
     })
 }
 if (program.opts().input)
@@ -53,7 +54,7 @@ function readConfigFile(config)
         }
         else
         {
-            rej("Error: Config file does not exist.")
+            rej("Error: Config file does not exist.");
         }
     })
 }
