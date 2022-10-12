@@ -7,7 +7,7 @@ body {
     color: black;
     text-align: center;
     background: rgb(2,0,36);
-    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(236,183,4,1) 0%, rgba(179,140,9,1) 26%, rgba(135,106,10,1) 89%);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(236,183,4,1) 0%, rgba(179,140,9,1) 71%, rgba(135,106,10,1) 100%);
     max-width: 100%;
     height: auto;
     -webkit-text-size-adjust: 100%;
