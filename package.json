@@ -13,6 +13,6 @@
   },
   "type": "module",
   "bin": {
-    "nan1-ssg": "./main.js"
+    "nan1-ssg": "./src/main.js"
   }
 }

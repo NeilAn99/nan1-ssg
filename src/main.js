@@ -1,5 +1,5 @@
 #! /usr/bin/env node
-import { generateHTML } from './generateHTML.js';
+import { generateHTML } from './generate-html.js';
 import { program } from 'commander';
 import fs, { read } from 'fs';
 
