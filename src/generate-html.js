@@ -102,7 +102,7 @@ function generateIndexHTML(input, isDir)
     <meta charset="utf-8">
     <title>index</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../src/style.css">
 </head>
 <body>
     The files are:

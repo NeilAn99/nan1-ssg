@@ -105,7 +105,7 @@ export function writeFile(input, result, lang)
     <meta charset="utf-8">
     <title>${title}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../src/style.css">
 </head>
 <body>
     ${content}
@@ -123,7 +123,7 @@ export function writeFile(input, result, lang)
     <meta charset="utf-8">
     <title>${title}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../src/style.css">
 </head>
 <body>
     ${content}
