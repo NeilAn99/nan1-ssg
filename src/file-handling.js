@@ -1,6 +1,7 @@
 import fs, { read } from 'fs';
 import path from 'path';
 import readline from 'readline';
+import showdown from 'showdown';
 
 //this function will read a .txt file
 export function readTextFile(input)
@@ -19,8 +20,25 @@ export function readTextFile(input)
     })
 }
 
-//this function will write to a file
-export function writeFile(input, result, lang)
+//this function will read a .md file
+export function readMdFile(input)
+{
+    return new Promise(async function(res, rej)
+    {
+        var lineArray = [];
+        const theFile = fs.createReadStream(input);
+        const line = readline.createInterface(
+            {
+                input: theFile
+            }
+        );
+        lineArray = readLineByLine("md", line);
+        res(lineArray);    
+    })
+}
+
+//this function will write to a file from a text file
+export function writeTxtFile(input, result, lang)
 {
     return new Promise(function(res, rej)
     {
@@ -33,10 +51,6 @@ export function writeFile(input, result, lang)
         {
             htmlFile = './dist/' + input.substring(0, input.length-4) + '.html';
             title = input.substring(0, input.length-4);
-        }
-        else if (path.extname(input) == ".md")
-        {
-            
         }
 
         //add the <p> tags to each line
@@ -125,11 +139,96 @@ export function writeFile(input, result, lang)
     })
 }
 
+export function writeMdFile(input, result, lang)
+{
+    return new Promise(function(res, rej)
+    {
+        var htmlFile = "";
+        var title = "";
+        //create the file name if text file or md file
+        if (path.extname(input) == ".md")
+        {
+            htmlFile = './dist/' + input.substring(0, input.length-3) + '.html';
+            title = input.substring(0, input.length-3);
+        }
+
+        var converter = new showdown.Converter();
+        var defaultOptions = showdown.getDefaultOptions();
+        converter.setFlavor('github');
+        converter.setOption({simpleLineBreaks: 'true',
+                             requireSpaceBeforeHeadingText: 'true',
+                             completeHTMLDocument: 'true'});
+        var text = result.join("\n");
+        var html = converter.makeHtml(text);
+
+        var templateHTML = "";
+        if (lang != "")
+        {
+            templateHTML =
+            `
+<!doctype html>
+<html lang="${lang}">
+<head>
+    <meta charset="utf-8">
+    <title>${title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../src/style.css">
+</head>
+<body>
+    ${html}
+</body>
+</html>
+            `
+        }
+        else
+        {
+            templateHTML =
+            `
+<!doctype html>
+<html lang="en-CA">
+<head>
+    <meta charset="utf-8">
+    <title>${title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../src/style.css">
+</head>
+<body>
+    ${html}
+</body>
+</html>
+            `
+        }
+
+        //write the file contents to the correct filename
+        fs.writeFile(htmlFile, templateHTML, function()
+        {
+
+        });
+
+        res(htmlFile);
+    })
+}
+
 //read a file line by line
 export async function readLineByLine(fileType, line)
 {
     var lineArray = [];
     if (fileType == "txt")
+    {
+        //go through the file line by line
+        for await (const theLine of line)
+        {
+            if (theLine != "")
+            {
+                lineArray.push(theLine);
+            }
+            else
+            {
+                lineArray.push("\n");
+            }
+        }
+    }
+    else if (fileType == "md")
     {
         //go through the file line by line
         for await (const theLine of line)
