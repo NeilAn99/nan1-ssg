@@ -19,23 +19,6 @@ export function readTextFile(input)
     })
 }
 
-//this function will read a .md file
-export function readMdFile(input)
-{
-    return new Promise(async function(res, rej)
-    {
-        var lineArray = [];
-        const theFile = fs.createReadStream(input);
-        const line = readline.createInterface(
-            {
-                input: theFile
-            }
-        );
-        lineArray = readLineByLine("md", line);
-        res(lineArray);    
-    })
-}
-
 //this function will write to a file
 export function writeFile(input, result, lang)
 {
@@ -53,8 +36,7 @@ export function writeFile(input, result, lang)
         }
         else if (path.extname(input) == ".md")
         {
-            htmlFile = './dist/' + input.substring(0, input.length-3) + '.html';
-            title = input.substring(0, input.length-3);
+            
         }
 
         //add the <p> tags to each line
@@ -155,54 +137,6 @@ export async function readLineByLine(fileType, line)
             if (theLine != "")
             {
                 lineArray.push(theLine);
-            }
-            else
-            {
-                lineArray.push("\n");
-            }
-        }
-    }
-    else if (fileType == "md")
-    {
-        //go through the file line by line
-        for await (const theLine of line)
-        {
-            if (theLine != "")
-            {
-                // regex to find opening and closing '**' in the line
-                //  based off of stackoverflow answer found here: https://stackoverflow.com/a/2295943 
-
-                // the pattern below matches multiple sets of characters that are surrounded by '**'
-                let pattern = /\*\*(?:\\.|[^\*\*])*\*\*/gm;
-                let matchIndexes = [];
-                let match;
-
-                // the while loop below will test the regex pattern against the line, and then push the beginning and ending index of the match into the match indexes array to find the positions where to place the <strong>...</strong> tags
-                while( match = pattern.exec(theLine) ){
-                    matchIndexes.push(match.index);
-                    matchIndexes.push(pattern.lastIndex);
-                }
-
-                // // make a modifiable copy of theLine
-                let modifiedLine = theLine;
-
-                // replace '**' with '<strong>' and '</strong>' tags, note lines may have multiple bolded words
-                for (let i = 0; i < matchIndexes.length; i += 2) {
-                    modifiedLine = modifiedLine.slice(0, matchIndexes[i]) + '<strong>' + modifiedLine.slice(matchIndexes[i] + 2, matchIndexes[i + 1] - 2) + '</strong>' + modifiedLine.slice(matchIndexes[i + 1]);
-
-                    // compensate for the added characters in the array (adding <strong> and </strong> tags and removing '**' --> 8 + 9 - 4 = 13)
-                    for (let j = i + 2; j < matchIndexes.length; j++) {
-                        matchIndexes[j] += 13;
-                    }
-                }
-                
-                //check if the line is a horizontal rule
-                if (modifiedLine == "---")
-                {
-                    modifiedLine = '<hr>';
-                }
-
-                lineArray.push(modifiedLine);
             }
             else
             {

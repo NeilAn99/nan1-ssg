@@ -45,10 +45,7 @@ export function generateHTML(input, lang="")
                             })
                         } else if (path.extname(fileName) == ".md")
                         {
-                            fileHandling.readMdFile(input + "/" + fileName).then(function(result)
-                            {
-                                fileHandling.writeFile(fileName, result, lang);
-                            })
+
                         }
                     })
                     generateIndexHTML(files, true);
@@ -66,11 +63,7 @@ export function generateHTML(input, lang="")
                 }
                 else if (path.extname(strippedInput) == ".md")
                 {
-                    fileHandling.readMdFile(input).then(function(result)
-                    {
-                        fileHandling.writeFile(strippedInput, result, lang);
-                        generateIndexHTML(strippedInput, false);
-                    })
+
                 }
             }
         }
