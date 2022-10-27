@@ -9,7 +9,8 @@
   "author": "Neil An",
   "license": "ISC",
   "dependencies": {
-    "commander": "^9.4.0"
+    "commander": "^9.4.0",
+    "showdown": "^2.1.0"
   },
   "type": "module",
   "bin": {
