@@ -41,13 +41,13 @@ export function generateHTML(input, lang="")
                         {
                             fileHandling.readTextFile(input + "/" + fileName).then(function(result)
                             {
-                                fileHandling.writeFile(fileName, result, lang);
+                                fileHandling.writeTxtFile(fileName, result, lang);
                             })
                         } else if (path.extname(fileName) == ".md")
                         {
                             fileHandling.readMdFile(input + "/" + fileName).then(function(result)
                             {
-                                fileHandling.writeFile(fileName, result, lang);
+                                fileHandling.writeMdFile(fileName, result, lang);
                             })
                         }
                     })
@@ -60,7 +60,7 @@ export function generateHTML(input, lang="")
                 {
                     fileHandling.readTextFile(input).then(function(result)
                     {
-                        fileHandling.writeFile(strippedInput, result, lang);
+                        fileHandling.writeTxtFile(strippedInput, result, lang);
                         generateIndexHTML(strippedInput, false);
                     })
                 }
@@ -68,7 +68,7 @@ export function generateHTML(input, lang="")
                 {
                     fileHandling.readMdFile(input).then(function(result)
                     {
-                        fileHandling.writeFile(strippedInput, result, lang);
+                        fileHandling.writeMdFile(strippedInput, result, lang);
                         generateIndexHTML(strippedInput, false);
                     })
                 }

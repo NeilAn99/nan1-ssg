@@ -1,6 +1,7 @@
 import fs, { read } from 'fs';
 import path from 'path';
 import readline from 'readline';
+import showdown from 'showdown';
 
 //this function will read a .txt file
 export function readTextFile(input)
@@ -36,8 +37,8 @@ export function readMdFile(input)
     })
 }
 
-//this function will write to a file
-export function writeFile(input, result, lang)
+//this function will write to a file from a text file
+export function writeTxtFile(input, result, lang)
 {
     return new Promise(function(res, rej)
     {
@@ -50,11 +51,6 @@ export function writeFile(input, result, lang)
         {
             htmlFile = './dist/' + input.substring(0, input.length-4) + '.html';
             title = input.substring(0, input.length-4);
-        }
-        else if (path.extname(input) == ".md")
-        {
-            htmlFile = './dist/' + input.substring(0, input.length-3) + '.html';
-            title = input.substring(0, input.length-3);
         }
 
         //add the <p> tags to each line
@@ -143,6 +139,76 @@ export function writeFile(input, result, lang)
     })
 }
 
+export function writeMdFile(input, result, lang)
+{
+    return new Promise(function(res, rej)
+    {
+        var htmlFile = "";
+        var title = "";
+        //create the file name if text file or md file
+        if (path.extname(input) == ".md")
+        {
+            htmlFile = './dist/' + input.substring(0, input.length-3) + '.html';
+            title = input.substring(0, input.length-3);
+        }
+
+        var converter = new showdown.Converter();
+        var defaultOptions = showdown.getDefaultOptions();
+        converter.setFlavor('github');
+        converter.setOption({simpleLineBreaks: 'true',
+                             requireSpaceBeforeHeadingText: 'true',
+                             completeHTMLDocument: 'true'});
+        var text = result.join("\n");
+        var html = converter.makeHtml(text);
+
+        var templateHTML = "";
+        if (lang != "")
+        {
+            templateHTML =
+            `
+<!doctype html>
+<html lang="${lang}">
+<head>
+    <meta charset="utf-8">
+    <title>${title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../src/style.css">
+</head>
+<body>
+    ${html}
+</body>
+</html>
+            `
+        }
+        else
+        {
+            templateHTML =
+            `
+<!doctype html>
+<html lang="en-CA">
+<head>
+    <meta charset="utf-8">
+    <title>${title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../src/style.css">
+</head>
+<body>
+    ${html}
+</body>
+</html>
+            `
+        }
+
+        //write the file contents to the correct filename
+        fs.writeFile(htmlFile, templateHTML, function()
+        {
+
+        });
+
+        res(htmlFile);
+    })
+}
+
 //read a file line by line
 export async function readLineByLine(fileType, line)
 {
@@ -169,40 +235,7 @@ export async function readLineByLine(fileType, line)
         {
             if (theLine != "")
             {
-                // regex to find opening and closing '**' in the line
-                //  based off of stackoverflow answer found here: https://stackoverflow.com/a/2295943 
-
-                // the pattern below matches multiple sets of characters that are surrounded by '**'
-                let pattern = /\*\*(?:\\.|[^\*\*])*\*\*/gm;
-                let matchIndexes = [];
-                let match;
-
-                // the while loop below will test the regex pattern against the line, and then push the beginning and ending index of the match into the match indexes array to find the positions where to place the <strong>...</strong> tags
-                while( match = pattern.exec(theLine) ){
-                    matchIndexes.push(match.index);
-                    matchIndexes.push(pattern.lastIndex);
-                }
-
-                // // make a modifiable copy of theLine
-                let modifiedLine = theLine;
-
-                // replace '**' with '<strong>' and '</strong>' tags, note lines may have multiple bolded words
-                for (let i = 0; i < matchIndexes.length; i += 2) {
-                    modifiedLine = modifiedLine.slice(0, matchIndexes[i]) + '<strong>' + modifiedLine.slice(matchIndexes[i] + 2, matchIndexes[i + 1] - 2) + '</strong>' + modifiedLine.slice(matchIndexes[i + 1]);
-
-                    // compensate for the added characters in the array (adding <strong> and </strong> tags and removing '**' --> 8 + 9 - 4 = 13)
-                    for (let j = i + 2; j < matchIndexes.length; j++) {
-                        matchIndexes[j] += 13;
-                    }
-                }
-                
-                //check if the line is a horizontal rule
-                if (modifiedLine == "---")
-                {
-                    modifiedLine = '<hr>';
-                }
-
-                lineArray.push(modifiedLine);
+                lineArray.push(theLine);
             }
             else
             {
