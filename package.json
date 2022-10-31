@@ -19,6 +19,7 @@
     "nan1-ssg": "./src/main.js"
   },
   "devDependencies": {
+    "eslint": "^8.26.0",
     "prettier": "2.7.1"
   }
 }
