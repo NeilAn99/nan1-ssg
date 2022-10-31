@@ -4,6 +4,7 @@
   "description": "Release 0.1 of nan1-ssg",
   "main": "nan1-ssg.js",
   "scripts": {
+    "lint": "npx eslint src",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prettier": "npx prettier --write .",
     "prettier-check": "npx prettier --check ."

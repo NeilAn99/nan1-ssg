@@ -1,31 +1,39 @@
-import fs, { read } from "fs";
+import fs from "fs";
 import path from "path";
 import readline from "readline";
 import showdown from "showdown";
 
 //this function will read a .txt file
 export function readTextFile(input) {
-  return new Promise(async function (res, rej) {
+  return new Promise(function (res, rej) {
     var lineArray = [];
     const theFile = fs.createReadStream(input);
     const line = readline.createInterface({
       input: theFile,
     });
     lineArray = readLineByLine("txt", line);
-    res(lineArray);
+    if (lineArray) {
+      res(lineArray);
+    } else {
+      rej("error");
+    }
   });
 }
 
 //this function will read a .md file
 export function readMdFile(input) {
-  return new Promise(async function (res, rej) {
+  return new Promise(function (res, rej) {
     var lineArray = [];
     const theFile = fs.createReadStream(input);
     const line = readline.createInterface({
       input: theFile,
     });
     lineArray = readLineByLine("md", line);
-    res(lineArray);
+    if (lineArray) {
+      res(lineArray);
+    } else {
+      rej("error");
+    }
   });
 }
 
@@ -102,7 +110,11 @@ export function writeTxtFile(input, result, lang) {
     //write the file contents to the correct filename
     fs.writeFile(htmlFile, templateHTML, function () {});
 
-    res(htmlFile);
+    if (htmlFile) {
+      res(htmlFile);
+    } else {
+      rej("error");
+    }
   });
 }
 
@@ -117,7 +129,6 @@ export function writeMdFile(input, result, lang) {
     }
 
     var converter = new showdown.Converter();
-    var defaultOptions = showdown.getDefaultOptions();
     converter.setFlavor("github");
     converter.setOption({
       simpleLineBreaks: "true",
@@ -163,7 +174,11 @@ export function writeMdFile(input, result, lang) {
     //write the file contents to the correct filename
     fs.writeFile(htmlFile, templateHTML, function () {});
 
-    res(htmlFile);
+    if (htmlFile) {
+      res(htmlFile);
+    } else {
+      rej("error");
+    }
   });
 }
 

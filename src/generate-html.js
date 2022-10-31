@@ -1,4 +1,4 @@
-import fs, { read } from "fs";
+import fs from "fs";
 import path from "path";
 import * as fileHandling from "./file-handling.js";
 
@@ -61,13 +61,14 @@ export function generateHTML(input, lang = "") {
 
 function generateIndexHTML(input, isDir) {
   var content = "";
+  var htmlFile;
   if (isDir) {
     for (var file of input) {
-      var htmlFile = file.substring(0, file.length - 4) + ".html";
+      htmlFile = file.substring(0, file.length - 4) + ".html";
       content += `<a href="${htmlFile}"> ${htmlFile} </a>\n<br>`;
     }
   } else {
-    var htmlFile = input.substring(0, input.length - 4) + ".html";
+    htmlFile = input.substring(0, input.length - 4) + ".html";
     content += `<a href="${htmlFile}"> ${htmlFile} </a>\n<br>`;
   }
 

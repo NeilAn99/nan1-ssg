@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 import { generateHTML } from "./generate-html.js";
 import { program } from "commander";
-import fs, { read } from "fs";
+import fs from "fs";
 
 program
   .option("-v, --version", "displays the tool name and version")
