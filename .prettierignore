@@ -1,0 +1,8 @@
+# Ignore artifacts:
+node_modules
+test
+CONTRIBUTING.md
+LICENSE
+package-lock.json
+package.json
+README.md

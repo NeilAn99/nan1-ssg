@@ -15,5 +15,8 @@
   "type": "module",
   "bin": {
     "nan1-ssg": "./src/main.js"
+  },
+  "devDependencies": {
+    "prettier": "2.7.1"
   }
 }
