@@ -29,16 +29,21 @@ git checkout -b BranchName
 
 8. Make your changes to the code.
 
-9. Run the prettier script to format your code:
+9. Run ESLint by running the script in your terminal:
+```
+npm run lint
+```
+
+10. Run the prettier script to format your code:
 ```
 npm run prettier
 ```
 
-10. Check that the files have been formatted correctly:
+11. Check that the files have been formatted correctly:
 ```
 npm run prettier-check
 ```
 
-10. Commit and push your changes to the branch.
+12. Commit and push your changes to the branch.
 
-11. Create a pull request.
+13. Create a pull request.
