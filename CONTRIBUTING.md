@@ -47,3 +47,7 @@ npm run prettier-check
 12. Commit and push your changes to the branch.
 
 13. Create a pull request.
+
+## Adding Prettier and ESLint extenstions to VSCode
+
+1. Upon opening the project for the first time, VSCode will recommend you to install `Prettier - Code Formater`, and `ESLint`. Install these extensions.

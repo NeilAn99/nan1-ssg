@@ -1,4 +1,5 @@
 # Ignore artifacts:
+.vscode
 node_modules
 test
 CONTRIBUTING.md
