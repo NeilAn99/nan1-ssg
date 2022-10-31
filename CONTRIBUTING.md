@@ -29,6 +29,16 @@ git checkout -b BranchName
 
 8. Make your changes to the code.
 
-9. Commit and push your changes to the branch.
+9. Run the prettier script to format your code:
+```
+npm run prettier
+```
 
-10. Create a pull request.
+10. Check that the files have been formatted correctly:
+```
+npm run prettier-check
+```
+
+10. Commit and push your changes to the branch.
+
+11. Create a pull request.
