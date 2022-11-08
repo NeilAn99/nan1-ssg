@@ -51,3 +51,11 @@ npm run prettier-check
 ## Adding Prettier and ESLint extenstions to VSCode
 
 1. Upon opening the project for the first time, VSCode will recommend you to install `Prettier - Code Formater`, and `ESLint`. Install these extensions.
+
+## Testing
+
+This project uses [jest](https://jestjs.io/) for testing.
+
+Using the `npm test` command to run all of the test files found in `src`.
+
+To add a test, look for the correct test file to add to and add a description to the test.

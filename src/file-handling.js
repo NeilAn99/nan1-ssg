@@ -6,16 +6,23 @@ import showdown from "showdown";
 //this function will read a .txt file
 export function readTextFile(input) {
   return new Promise(function (res, rej) {
-    var lineArray = [];
-    const theFile = fs.createReadStream(input);
-    const line = readline.createInterface({
-      input: theFile,
-    });
-    lineArray = readLineByLine("txt", line);
-    if (lineArray) {
-      res(lineArray);
-    } else {
-      rej("error");
+    if (path.extname(input) == ".txt")
+    {
+      var lineArray = [];
+      const theFile = fs.createReadStream(input);
+      const line = readline.createInterface({
+        input: theFile,
+      });
+      lineArray = readLineByLine("txt", line);
+      if (lineArray) {
+        res(lineArray);
+      } else {
+        rej("error");
+      }
+    }
+    else
+    {
+      rej("not a text file");
     }
   });
 }
@@ -23,16 +30,23 @@ export function readTextFile(input) {
 //this function will read a .md file
 export function readMdFile(input) {
   return new Promise(function (res, rej) {
-    var lineArray = [];
-    const theFile = fs.createReadStream(input);
-    const line = readline.createInterface({
-      input: theFile,
-    });
-    lineArray = readLineByLine("md", line);
-    if (lineArray) {
-      res(lineArray);
-    } else {
-      rej("error");
+    if (path.extname(input) == ".md")
+    {
+      var lineArray = [];
+      const theFile = fs.createReadStream(input);
+      const line = readline.createInterface({
+        input: theFile,
+      });
+      lineArray = readLineByLine("md", line);
+      if (lineArray) {
+        res(lineArray);
+      } else {
+        rej("error");
+      }
+    }
+    else
+    {
+      rej("not a md file");
     }
   });
 }

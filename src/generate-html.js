@@ -59,7 +59,7 @@ export function generateHTML(input, lang = "") {
   });
 }
 
-function generateIndexHTML(input, isDir) {
+export function generateIndexHTML(input, isDir) {
   var content = "";
   var htmlFile;
   if (isDir) {

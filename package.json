@@ -5,7 +5,7 @@
   "main": "nan1-ssg.js",
   "scripts": {
     "lint": "npx eslint src",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "prettier": "npx prettier --write .",
     "prettier-check": "npx prettier --check ."
   },
@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "eslint": "^8.26.0",
+    "jest": "^29.3.0",
     "prettier": "2.7.1"
   }
 }

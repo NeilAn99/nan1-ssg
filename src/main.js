@@ -27,7 +27,6 @@ if (program.opts().config) {
 }
 if (program.opts().input) {
   if (program.opts().lang) {
-    console.log(`${program.opts().lang}`);
     generateHTML(`${program.opts().input}`, `${program.opts().lang}`);
   } else {
     generateHTML(`${program.opts().input}`);
@@ -35,12 +34,17 @@ if (program.opts().input) {
 }
 
 //this function will read a JSON config file
-function readConfigFile(config) {
+export default function readConfigFile(config) {
   return new Promise(function (res, rej) {
     if (fs.existsSync(config)) {
-      const theFile = fs.readFileSync(config, "utf-8");
-      const JSONfile = JSON.parse(theFile);
-      res(JSONfile);
+      try {
+        const theFile = fs.readFileSync(config, "utf-8");
+        const JSONfile = JSON.parse(theFile);
+        res(JSONfile);
+      }
+      catch {
+        rej("Invalid JSON file.")
+      }
     } else {
       rej("Error: Config file does not exist.");
     }
