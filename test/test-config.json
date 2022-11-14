@@ -1,0 +1,4 @@
+{
+    "input": "./test/Sherlock-Holmes-Selected-Stories/Silver Blaze.txt ./test/Sherlock-Holmes-Selected-Stories/The Adventure of the Speckled Band.txt",
+    "output": "./croissant"
+}

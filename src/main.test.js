@@ -17,4 +17,10 @@ describe("json config tests", () =>
         expect.assertions(1);
         await expect(readConfigFile("./test/invalid-config.json")).rejects.toEqual('Invalid JSON file.');
     })
+
+    test("check if test config file passes", async () => {
+        const jsonData = await readConfigFile("./test/test-config.json");
+        const testData = {"input": "./test/Sherlock-Holmes-Selected-Stories/Silver Blaze.txt ./test/Sherlock-Holmes-Selected-Stories/The Adventure of the Speckled Band.txt", "output": "./croissant"}
+        expect(jsonData).toStrictEqual(testData);
+    })
 })
