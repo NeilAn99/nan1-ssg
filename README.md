@@ -2,29 +2,21 @@
 
 nan1-ssg is a static site generator converting .txt and .md files to .html files.
 
-## Requirements
-
-[Node.js](https://nodejs.org/en/download/) is required to run this tool.
-
 ## Usage
 
 **To use this tool:**
 
-1. Clone or download and extract the repo to a location on your computer.
-
-2. Open a terminal/command window and navigate to the location where the tool is.
-
-3. Run the npm install command:
+1. Run the npm install command:
 ```
-npm install
+npm i nan1-ssg
 ```
 
-4. Run the npm link command:
+2. Run the npm link command:
 ```
 npm link
 ```
 
-5. Start using the tool! For example:
+3. Start using the tool! For example:
 
 ```
 nan1-ssg [-option]
