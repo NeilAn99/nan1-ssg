@@ -13,7 +13,7 @@ npm i nan1-ssg
 
 2. Run the npm link command:
 ```
-npm link
+npm link nan1-ssg
 ```
 
 3. Start using the tool! For example:
