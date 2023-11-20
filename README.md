@@ -1,6 +1,6 @@
 # nan1-ssg
 
-**nan1-ssg** is a static site generator converting .txt and .md files to .html files.
+**nan1-ssg is a static site generator** converting .txt and .md files to .html files.
 
 ## Usage
 
